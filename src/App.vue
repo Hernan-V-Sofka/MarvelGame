@@ -1,16 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <StartGame msg="Welcome to the Marvel card game"/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import StartGame from './views/StartViewGame.vue';
+import CampGame from './views/CampViewGame.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    StartGame,
+    CampGame
   }
 });
 </script>
