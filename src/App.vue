@@ -1,20 +1,10 @@
 <template>
-  <StartGame msg="Welcome to the Marvel card game"/>
+  <nav>
+    <router-link to="/"> Home </router-link> | 
+    <router-link to="/camp"> Campo </router-link>
+  </nav>
+  <router-view />
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import StartGame from './views/StartViewGame.vue';
-import CampGame from './views/CampViewGame.vue';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    StartGame,
-    CampGame
-  }
-});
-</script>
 
 <style>
 #app {

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'; 
-import StartGame from '../views/StartViewGame.vue';
+import StartGame from '@/views/StartViewGame.vue';
 import CampView from '../views/CampViewGame.vue';
 
 
-const routes: RouteRecordRaw[]  = [
+const routes: RouteRecordRaw[] = [
     { 
-        path: '/start',
+        path: '/',
         name: 'Inicio',
         component: StartGame   
     },
