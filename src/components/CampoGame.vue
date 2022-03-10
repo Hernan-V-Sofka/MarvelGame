@@ -1,7 +1,5 @@
 <template>
-  <h1>
-      PAGINA QUE CONTENDRA EL CAMPO
-  </h1>
+  <h1>PAGINA QUE CONTENDRA EL CAMPO</h1>
 </template>
 
 <script lang="ts">

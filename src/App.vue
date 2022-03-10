@@ -1,18 +1,30 @@
 <template>
-  <nav>
-    <router-link to="/"> Home </router-link> | 
-    <router-link to="/camp"> Campo </router-link>
+  <nav class="nav-container">
+    <router-link class="item" to="/"> Home </router-link> | 
+    <router-link class="item" to="/camp"> StartGame </router-link>
   </nav>
   <router-view />
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import './assets/styles/normalice.css';
+.nav-container{
+  background-color: #df2757;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
+
+.item{
+  color: #ed7d2a;
+  text-decoration: none;
+  text-align: center;
+  width: 40%;
+  font-family: fantasy;
+  font-size: 25px;
+}
+
+
 </style>

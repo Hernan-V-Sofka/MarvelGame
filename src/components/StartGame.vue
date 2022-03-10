@@ -1,9 +1,16 @@
 <template>
-    <h1>INICIO</h1>
+    <div class="container bg-dark">
+        <h1> {{ msg }} </h1>
+
+        <div class="contaner-img">
+            <img src="../assets/marvelLogo.png" alt="Logo de marvel" class="img">
+        </div>
+    </div>
 </template>
 
 <script lang= "ts">
 import { defineComponent } from 'vue';
+
 export default defineComponent({   
    name: 'StartGame',
    props: {
@@ -18,13 +25,26 @@ export default defineComponent({
         left: 0px;
         max-height: 100%;
         max-width: 100%;
-        position: fixed;
         top: 0px;
         width: 100vw;
-        background-color: rgba(0, 0, 0, 0.9);
+        text-align: center;
+        background-color: #e11a29;
     }
 
-    .marvel{
+    .container-img{
+        width: 10%;
+        display: flex;
+        
+    }
+
+    .img{ 
+        width: 80%;
+        border-radius: 10px;
+        height: 60%;
+    }
+
+
+    /* .marvel{
        position: relative;
     }
 
@@ -38,11 +58,6 @@ export default defineComponent({
        font-size: 18px;
     }
      
-    img{ 
-        width: 100%;
-        height: 50%;
-    }
-
     .menu-Start{
         position: relative;
         top: 380px;
@@ -57,5 +72,5 @@ export default defineComponent({
         text-decoration: none;
         display: inline-block;
         font-size: 15px;
-    }
+    } */
 </style>
