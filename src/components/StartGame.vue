@@ -1,5 +1,5 @@
 <template>
-    <div class="container bg-dark">
+    <div class="container bg">
         <h1> {{ msg }} </h1>
 
         <div class="contaner-img">
@@ -20,7 +20,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-    .bg-dark{
+    .container{
+        padding: 0.01em;
+    }
+
+    .bg{
         height: 100vh;
         left: 0px;
         max-height: 100%;
@@ -34,6 +38,7 @@ export default defineComponent({
     .container-img{
         width: 10%;
         display: flex;
+        margin: 0;
         
     }
 
