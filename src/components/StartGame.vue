@@ -1,81 +1,55 @@
 <template>
-    <div class="container bg">
-        <h1> {{ msg }} </h1>
+    <section class="vh-100" style="background-color: #F0131E;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
 
-        <div class="contaner-img">
-            <img src="../assets/marvelLogo.png" alt="Logo de marvel" class="img">
+                            <h3 class="mb-5">{{ msg }}</h3>
+                            
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="typeEmailX-2">Email</label>
+                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="typePasswordX-2">Password</label>
+                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                            </div>
+
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+
+                            <hr class="my-4">
+
+                            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #dd4b39;" type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
+                            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;" type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script lang= "ts">
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({   
    name: 'StartGame',
    props: {
        msg: String,
+   },
+   setup(){
+    //    const form = reactive({
+    //        userName: '',
+    //        password: ''
+    //    });
+
+    //    const onSubmit = () => {}
+
+    //    return { form, onSubmit }
    }
 });
 </script>
 
-<style scoped>
-    .container{
-        padding: 0.01em;
-    }
-
-    .bg{
-        height: 100vh;
-        left: 0px;
-        max-height: 100%;
-        max-width: 100%;
-        top: 0px;
-        width: 100vw;
-        text-align: center;
-        background-color: #e11a29;
-    }
-
-    .container-img{
-        width: 10%;
-        display: flex;
-        margin: 0;
-        
-    }
-
-    .img{ 
-        width: 80%;
-        border-radius: 10px;
-        height: 60%;
-    }
-
-
-    /* .marvel{
-       position: relative;
-    }
-
-    #imgMarvel{
-       position: absolute;
-       left: 0%;
-       right: 60%;
-       width: 100%;
-       margin: auto;
-       text-align: center;
-       font-size: 18px;
-    }
-     
-    .menu-Start{
-        position: relative;
-        top: 380px;
-    }
-
-    .btn-Start{
-        background-color: #f44336;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 15px;
-    } */
-</style>
