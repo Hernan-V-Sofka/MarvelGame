@@ -8,7 +8,3 @@ export default defineComponent ({
     name: 'CampGame'
 });
 </script>
-
-<style>
-
-</style>
