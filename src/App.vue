@@ -5,8 +5,8 @@
   <!-- <div class="text-center">
     <CampoGame />
   </div> -->
-   <div class="text-center">
-    <CampoGame />
+  <div class="text-center">
+    <Carts />
   </div>
 </template>
 
@@ -16,11 +16,11 @@
 import { defineComponent, onMounted } from 'vue';
 // import StartGame from '@/components/StartGame.vue';
 // import CampoGame from '@/components/CampoGame.vue';
-import CampoGame from '@/components/CartsGame.vue';
+import Carts from '@/components/CartsGame.vue';
 
 export default defineComponent({
   name: 'App',
-  components:{CampoGame},
+  components:{Carts},
   setup() {
       return { 
 
