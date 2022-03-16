@@ -33,7 +33,7 @@
 
 <div class="text-center" >
     <CampoGame v-if="isVicible" />
-    <Carts />
+    <Carts v-if="isVicible"/>
 </div>
 
 </template>
