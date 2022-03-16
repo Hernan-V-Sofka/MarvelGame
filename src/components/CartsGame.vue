@@ -1,90 +1,26 @@
 <template>
-<div class="card-grup">
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-5 col-lg-2">
-      <div class="card">
-        <img :src="imgUrl" class="card-img-top" alt="ImgCarts" />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-5 col-lg-2">
-      <div class="card">
-        <img :src="imgUrl" class="card-img-top" alt="ImgCarts" />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
+  <div class="card-grup">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5 col-lg-2">
+        <div class="card">
+          <img :src="imgUrl" class="card-img-top" alt="ImgCarts" />
+          <div class="card-body">
+            <h5 class="card-title fw-bolder">{{ title }}</h5>
+            <p class="card-text fst-italic">{{ description }}</p>
+            <hr class="my-4" />
+            <p class="card-text fst-italic"> -{{ caracteristicas }}</p>
+          </div>
+          <div class="card-footer d-flex justify-content-around">
+            <div class="d-flex justify-content-center">
+              <small class="text-danger fs-6">Power: {{ xp }}</small>
+            </div>
+            <button type="button" class="btn btn-dark fs-6">
+              Colocar Carta
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
-
-    <div class="col-md-5 col-lg-2">
-      <div class="card">
-        <img :src="imgUrl" class="card-img-top" alt="ImgCarts" />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-md-5 col-lg-2">
-      <div class="card">
-        <img :src="imgUrl" class="card-img-top" alt="ImgCarts" />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-md-5 col-lg-2">
-      <div class="card">
-        <img :src="imgUrl" class="card-img-top" alt="ImgCarts" />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -106,6 +42,10 @@ export default defineComponent({
   data() {
     return {
       imgUrl: "",
+      title: "",
+      description: "",
+      xp: 0,
+      caracteristicas: "",
     };
   },
   mounted() {
@@ -117,8 +57,12 @@ export default defineComponent({
         const coll = collection(db, "img");
         const urlItem = await (
           await getDocs(coll)
-        ).docs.map((docs) => docs.data().url);
-        this.imgUrl = urlItem[0];
+        ).docs.map((docs) => docs.data());
+        this.imgUrl = urlItem[0].url;
+        this.title = urlItem[0].Title;
+        this.caracteristicas = urlItem[0].Caracteristicas;
+        this.xp = urlItem[0].XP;
+        this.description = urlItem[0].Descripcion;
       } catch (error) {
         console.log("Error");
       }
