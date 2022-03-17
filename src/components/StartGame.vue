@@ -31,9 +31,14 @@
 </section>
 
 
-<div class="text-center" >
-    <CampoGame v-if="isVicible" />
-    <Carts v-if="isVicible"/>
+<div class="text-center" v-if="notVisicible">
+    <CampoGame />
+    <Carts />
+</div>
+
+<div class="container py-5 h-50 d-flex justify-content-center" v-if="isVicible">
+    <!-- <ComponentAdmin /> -->
+    <ListCartas />
 </div>
 
 </template>
@@ -42,12 +47,14 @@
 import { defineComponent } from 'vue';
 import CampoGame from '@/components/CampoGame.vue';
 import Carts from '@/components/CartsGame.vue';
+import ListCartas from '@/components/ComponetsListCarts.vue';
 
 export default defineComponent({   
    name: 'StartGame',
    components: {
     CampoGame,
-    Carts
+    Carts,
+    ListCartas
    },
    props: {
        msg: String,
@@ -55,7 +62,8 @@ export default defineComponent({
    data(){
        return { 
         isVicible: false,
-        oculeteLogin: true
+        oculeteLogin: true,
+        notVisicible: false
        }
     },
    methods:{
