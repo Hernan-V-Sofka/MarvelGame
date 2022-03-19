@@ -3,8 +3,8 @@ import morgan from 'morgan'
 import cors from 'cors'
 
 import entorno from '../entorno';
-import DB from '../DB/connection'
-import login from '../routes/login.routes'
+import ConnectionFireBase from '../DB/ConnectionFireBase';
+import login from '../routes/login.routes';
 
 
 /* 
@@ -35,11 +35,10 @@ class Server {
     
     private async dbConnection(){
         try {
-            const connection = new DB();
-            await connection.connect();
+            const db = new ConnectionFireBase();       
         } catch (error) {
-            throw new Error('Error de conexion');
-        }
+            throw new Error(`Error en la conexion ${error}`);   
+        }        
     }
 
     middleware() {

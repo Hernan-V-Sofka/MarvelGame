@@ -1,6 +1,6 @@
 import connection from './connection';
 import Seguridad from '../models/security/seguridad';
-import Consulta from './consultas';
+import Consulta from './GetCollections';
 
 class RegisterUser extends connection{
     constructor(){

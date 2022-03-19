@@ -1,18 +1,31 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'; 
-import StartGame from '@/views/StartViewGame.vue';
-import CampView from '../views/CampViewGame.vue';
+import FormLogin from '@/components/FormLogin.vue';
+import RegisterUser from '@/components/RegisterGame.vue';
+import Home from '@/components/Home.vue';
+import MainGame from '@/components/MainGame.vue';
+
 
 
 const routes: RouteRecordRaw[] = [
-    { 
+    {
         path: '/',
-        name: 'Inicio',
-        component: StartGame   
+        name: 'home',
+        component: Home
     },
     { 
-        path: '/camp',
-        name: 'Campo',
-        component: CampView
+        path: '/login',
+        name: 'login',
+        component: FormLogin   
+    },
+    {
+        path: '/register',
+        name: 'registerUser',
+        component: RegisterUser
+    },
+    { 
+        path: '/game',
+        name: 'mainGame',
+        component: MainGame
     }
 ];
 

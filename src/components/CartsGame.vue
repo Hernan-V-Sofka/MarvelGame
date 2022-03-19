@@ -116,8 +116,8 @@
 
 <script lang= "ts">
 import { defineComponent } from "vue";
-import { collection, getDocs } from "firebase/firestore/lite";
-import { db } from "@/main";
+// import { collection, getDocs } from "firebase/firestore/lite";
+// // import { db } from "@/main";
 
 export default defineComponent({
   name: "CartGame",
@@ -131,24 +131,24 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.getDats();
+    // this.getDats();
   },
-  methods: {
-    async getDats() {
-      try {
-        const coll = collection(db, "img");
-        const urlItem = await (
-          await getDocs(coll)
-        ).docs.map((docs) => docs.data());
-        this.imgUrl = urlItem[1].url;
-        this.title = urlItem[1].Title;
-        this.caracteristicas = urlItem[1].Caracteristicas;
-        this.xp = urlItem[1].XP;
-        this.description = urlItem[1].Descripcion;
-      } catch (error) {
-        console.log("Error");
-      }
-    },
-  },
+  // methods: {
+  //   async getDats() {
+  //     try {
+  //       const coll = collection(db, "img");
+  //       const urlItem = await (
+  //         await getDocs(coll)
+  //       ).docs.map((docs) => docs.data());
+  //       this.imgUrl = urlItem[1].url;
+  //       this.title = urlItem[1].Title;
+  //       this.caracteristicas = urlItem[1].Caracteristicas;
+  //       this.xp = urlItem[1].XP;
+  //       this.description = urlItem[1].Descripcion;
+  //     } catch (error) {
+  //       console.log("Error");
+  //     }
+  //   },
+  // },
 });
 </script>
