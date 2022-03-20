@@ -43,6 +43,7 @@
                   class="btn btn-lg btn-block btn-primary mb-2"
                   style="background-color: #dd4b39"
                   value="Login"
+                  @click="SingInGoogle"
                 >
                   <i class="fa fa-google" aria-hidden="true"></i> Sign in with
                   google
@@ -77,7 +78,7 @@
 
 <script lang= "ts">
 import { defineComponent } from "vue";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 export default defineComponent({
   name: "FormLogin",
@@ -98,6 +99,16 @@ export default defineComponent({
       .catch(error =>{
         alert('La el email o la password estan erradas, vuelvalo a intentar.')
       });
+    },
+    SingInGoogle(){
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+      .then(() => console.log('SingIn'))
+      .catch(error => alert('Error al iniciar session')); 
+    },
+    SingInFacebook(){
+
     }
   }
 });
