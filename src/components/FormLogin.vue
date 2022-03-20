@@ -6,13 +6,14 @@
           <div class="card shadow-2-strong" style="border-radius: 1rem">
             <div class="card-body p-5 text-center">
               <h3 class="mb-5">Marvel Game Session</h3>
-              <form @submit.prevent="Login">
+              <form @submit.prevent="Login(this.email, this.password)">
                 <div class="form-outline mb-4">
                   <label class="form-label" for="Email">Email</label>
                   <input
                     type="email"
                     id="Email"
                     class="form-control form-control-lg"
+                    required
                     v-model="email"
                   />
                 </div>
@@ -23,6 +24,7 @@
                     type="password"
                     id="Password"
                     class="form-control form-control-lg"
+                    required
                     v-model="password"
                   />
                 </div>
@@ -74,30 +76,30 @@
 </template>
 
 <script lang= "ts">
-import { defineComponent, ref } from "vue";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { defineComponent } from "vue";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth';
 
 export default defineComponent({
   name: "FormLogin",
-  setup() {
-    const email = ref("");
-    const password = ref("");
-
-    const Login = () => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email.value, password.value)
-        .then(data => console.log(data))
-        .catch(err => alert(err.message));
-    }
-
+  data(){
     return {
-      Login,
-      email,
-      password
+      email: '',
+      password: ''
     };
   },
+  methods: {
+    Login(email: string, password: string) {
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) =>{
+        const user = userCredential;
+        console.log(user);
+      })
+      .catch(error =>{
+        alert('La el email o la password estan erradas, vuelvalo a intentar.')
+      });
+    }
+  }
 });
 </script>
 

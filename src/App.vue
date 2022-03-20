@@ -6,8 +6,6 @@
 import { defineComponent, onBeforeMount } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { getAuth } from 'firebase/auth'
-// import firebase from "firebase/compat/app";
-// import "firebase/compat/auth";
 
 export default defineComponent({
   name: "App",
