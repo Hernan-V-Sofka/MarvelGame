@@ -6,7 +6,7 @@
           <div class="card shadow-2-strong" style="border-radius: 1rem">
             <div class="card-body p-5 text-center">
               <h3 class="mb-5">Register User</h3>
-              <form @submit.prevent="Register">
+              <form @submit.prevent="register(this.email, this.password)">
                 <div class="form-outline mb-4">
                   <label class="form-label" for="Email">Email</label>
                   <input
@@ -56,31 +56,31 @@
 </template>
 
 <script lang= "ts">
-import { defineComponent, ref } from "vue";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { defineComponent } from "vue";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export default defineComponent({
   name: "RegisterUser",
-  setup() {
-    const email = ref("");
-    const password = ref("");
-
-    const Register = async() => {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email.value, password.value)
-        .then((user) => {
-          alert("El usuario fue guardado con exito");
-        })
-        .catch((error) => alert("Error al guardar al usuario"));
-    };
-
+  data() {
     return {
-      Register,
-      email,
-      password,
+      email: '',
+      password: '',
     };
+  },
+  methods: {
+    register(email: string, password:string) {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          alert("Sea registrado de manera correcta");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(error.message);
+        });
+    },
   },
 });
 </script>

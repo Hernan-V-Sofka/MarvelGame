@@ -5,8 +5,9 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { getAuth } from 'firebase/auth'
+// import firebase from "firebase/compat/app";
+// import "firebase/compat/auth";
 
 export default defineComponent({
   name: "App",
@@ -15,7 +16,8 @@ export default defineComponent({
     const route = useRoute();
 
     onBeforeMount(() => {
-      firebase.auth().onAuthStateChanged((user) => {
+      const auth = getAuth();
+      auth.onAuthStateChanged((user) => {
         if (!user) {
           router.replace("/login");
         } else if (route.path == "/login" || route.path == "/register") {
