@@ -27,9 +27,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.decoration{
-  text-decoration: none;
-  color: #fff;
-}
-</style>
+

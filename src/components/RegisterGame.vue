@@ -36,16 +36,15 @@
                 </button>
 
                 <hr class="my-4" />
-                <button
+                <router-link
                   class="btn btn-lg btn-block btn-primary mb-2"
                   style="background-color: #3b5998"
                   type="submit"
+                  to="/login"
                 >
                   <i class="fa fa-sign-in" aria-hidden="true"></i>
-                  <router-link to="/login" class="decoration">
-                    Iniciar Session
-                  </router-link>
-                </button>
+                  Iniciar Session
+                </router-link>
               </form>
             </div>
           </div>
@@ -63,12 +62,12 @@ export default defineComponent({
   name: "RegisterUser",
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     };
   },
   methods: {
-    register(email: string, password:string) {
+    register(email: string, password: string) {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {

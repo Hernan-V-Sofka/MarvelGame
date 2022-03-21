@@ -52,21 +52,21 @@
                   class="btn btn-lg btn-block btn-primary mb-2"
                   style="background-color: #3b5998"
                   type="submit"
+                  @click="SingInFacebook"
                 >
                   <i class="fa fa-facebook" aria-hidden="true"></i> Sign in with
                   facebook
                 </button>
 
-                <button
+                <router-link
                   class="btn btn-lg btn-block btn-Success mb-2"
                   style="background-color: #adb5bd"
                   type="submit"
+                  to="/register"
                 >
                   <i class="fa fa-registered" aria-hidden="true"></i>
-                  <router-link class="decoration" to="/register"
-                    >Registrar</router-link
-                  >
-                </button>
+                  Registrar
+                </router-link>
               </form>
             </div>
           </div>
@@ -78,39 +78,58 @@
 
 <script lang= "ts">
 import { defineComponent } from "vue";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  FacebookAuthProvider,
+} from "firebase/auth";
 
 export default defineComponent({
   name: "FormLogin",
-  data(){
+  data() {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
+      auth: getAuth(),
     };
   },
   methods: {
     Login(email: string, password: string) {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) =>{
-        const user = userCredential;
-        console.log(user);
-      })
-      .catch(error =>{
-        alert('La el email o la password estan erradas, vuelvalo a intentar.')
-      });
+      signInWithEmailAndPassword(this.auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential;
+          console.log(user);
+        })
+        .catch((error) => {
+          alert(
+            `La el email o la password estan erradas, vuelvalo a intentar.`
+          );
+        });
     },
-    SingInGoogle(){
-      const auth = getAuth();
+    SingInGoogle() {
       const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider)
-      .then(() => console.log('SingIn'))
-      .catch(error => alert('Error al iniciar session')); 
+      signInWithPopup(this.auth, provider)
+        .then(() => console.log("SingIn"))
+        .catch((error) => alert(`Error al iniciar session ${error}`));
     },
-    SingInFacebook(){
+    SingInFacebook() {
+      const provider = new FacebookAuthProvider();
+      this.auth.useDeviceLanguage();
+      signInWithPopup(this.auth, provider)
+        .then((result) => {
+          // const user = result.user;
+          // const credential = FacebookAuthProvider.credentialFromResult(result);
+          // const token = credential.accessToken;
 
-    }
-  }
+          console.log("Autenticado");
+        })
+        .catch((error) =>
+          alert(`Error al autenticar con la cuenta de facebook ${error}`)
+        );
+    },
+  },
 });
 </script>
 
