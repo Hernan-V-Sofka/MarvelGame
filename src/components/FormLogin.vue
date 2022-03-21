@@ -99,8 +99,7 @@ export default defineComponent({
     Login(email: string, password: string) {
       signInWithEmailAndPassword(this.auth, email, password)
         .then((userCredential) => {
-          const user = userCredential;
-          console.log(user);
+          console.log(userCredential);
         })
         .catch((error) => {
           alert(
@@ -119,10 +118,6 @@ export default defineComponent({
       this.auth.useDeviceLanguage();
       signInWithPopup(this.auth, provider)
         .then((result) => {
-          // const user = result.user;
-          // const credential = FacebookAuthProvider.credentialFromResult(result);
-          // const token = credential.accessToken;
-
           console.log("Autenticado");
         })
         .catch((error) =>
