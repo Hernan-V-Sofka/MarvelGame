@@ -18,6 +18,7 @@
           <label for="Title" class="form-label">Title</label>
           <input
             type="text"
+            required
             class="form-control"
             id="titulo"
             v-model="cartInfo.title"
@@ -27,6 +28,7 @@
           <label for="Xp" class="form-label">XP</label>
           <input
             type="text"
+            required
             class="form-control"
             id="Xp"
             v-model="cartInfo.xp"
@@ -49,6 +51,7 @@
             class="form-control"
             aria-label="Descripcio"
             v-model="cartInfo.description"
+            required
           ></textarea>
         </div>
 
@@ -58,6 +61,7 @@
             class="form-control"
             aria-label="Caracteristicas"
             v-model="cartInfo.caracteristicas"
+            required
           ></textarea>
         </div>
 
@@ -66,6 +70,10 @@
           <button type="submit" class="btn btn-primary" value="updateCart">
             Actualizar Carta
           </button>
+
+          <router-link type="submit" class="btn btn-danger" to="/listCarts">
+            Cancelar
+          </router-link>
         </div>
       </form>
     </div>
@@ -109,15 +117,27 @@ export default defineComponent({
         icon: "error",
       });
     },
+
+    error() {
+      Swal.fire({
+        title: "Error",
+        text: "Problemas al traer la informacion de la base de datos",
+      });
+    },
     async getCart() {
-      this.docRef = doc(cartsCollRef, this.cartId);
-      let cart = await getDoc(this.docRef);
-      this.cartInfo.idCart = cart.data()["idCart"];
-      this.cartInfo.title = cart.data()["title"];
-      this.cartInfo.xp = cart.data()["xp"];
-      this.cartInfo.urlImg = cart.data()["urlImg"];
-      this.cartInfo.description = cart.data()["description"];
-      this.cartInfo.caracteristicas = cart.data()["caracteristicas"];
+      try {
+        this.docRef = doc(cartsCollRef, this.cartId);
+        let cart = await getDoc(this.docRef);
+        this.cartInfo.idCart = cart.data()["idCart"];
+        this.cartInfo.title = cart.data()["title"];
+        this.cartInfo.xp = cart.data()["xp"];
+        this.cartInfo.urlImg = cart.data()["urlImg"];
+        this.cartInfo.description = cart.data()["description"];
+        this.cartInfo.caracteristicas = cart.data()["caracteristicas"];
+      } catch (error) {
+        this.error();
+        this.$router.push("/listCarts");
+      }
     },
     async updateCart() {
       await setDoc(this.docRef, this.cartInfo)

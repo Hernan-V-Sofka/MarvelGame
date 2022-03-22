@@ -11,15 +11,28 @@
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-sm"
             v-model="idCart"
+            required
           />
         </div>
         <div class="sm-2">
           <label for="Title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="titulo" v-model="title" />
+          <input
+            type="text"
+            class="form-control"
+            id="titulo"
+            v-model="title"
+            required
+          />
         </div>
         <div class="sm-2">
           <label for="Xp" class="form-label">XP</label>
-          <input type="text" class="form-control" id="Xp" v-model="xp" />
+          <input
+            type="text"
+            class="form-control"
+            id="Xp"
+            v-model="xp"
+            required
+          />
         </div>
         <div class="sm-2">
           <label for="url" class="form-label">URL Imagen</label>
@@ -28,6 +41,7 @@
             class="form-control"
             id="urlImagen"
             v-model="urlImg"
+            required
           />
         </div>
 
@@ -37,6 +51,7 @@
             class="form-control"
             aria-label="Descripcio"
             v-model="description"
+            required
           ></textarea>
         </div>
 
@@ -46,6 +61,7 @@
             class="form-control"
             aria-label="Caracteristicas"
             v-model="caracteristicas"
+            required
           ></textarea>
         </div>
 
@@ -98,7 +114,7 @@ export default defineComponent({
       });
     },
     async saveCarts() {
-      const addedDoc = await addDoc(cartsCollRef, this.$data)
+      await addDoc(cartsCollRef, this.$data)
         .then((result) => {
           this.okSave();
           this.$router.push("/listCarts");
