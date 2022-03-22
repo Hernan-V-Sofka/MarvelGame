@@ -2,7 +2,7 @@
   <div class="vh-100">
     <div class="container py-5 h-100">
       <h3 class="text-center">Actualizar Cartas</h3>
-      <form>
+      <form @submit.prevent="updateCart()">
         <div class="input-group input-group-sm mb-3">
           <span class="input-group-text" id="inputGroup-sizing-sm">Id: </span>
           <input
@@ -11,16 +11,26 @@
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-sm"
             disabled
-            v-model="idCart"
+            v-model="cartInfo.idCart"
           />
         </div>
         <div class="sm-2">
           <label for="Title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="titulo" v-model="title" />
+          <input
+            type="text"
+            class="form-control"
+            id="titulo"
+            v-model="cartInfo.title"
+          />
         </div>
         <div class="sm-2">
           <label for="Xp" class="form-label">XP</label>
-          <input type="text" class="form-control" id="Xp" v-model="xp" />
+          <input
+            type="text"
+            class="form-control"
+            id="Xp"
+            v-model="cartInfo.xp"
+          />
         </div>
         <div class="sm-2">
           <label for="url" class="form-label">URL Imagen</label>
@@ -29,7 +39,7 @@
             class="form-control"
             id="urlImagen"
             disabled
-            v-model="urlImg"
+            v-model="cartInfo.urlImg"
           />
         </div>
 
@@ -38,7 +48,7 @@
           <textarea
             class="form-control"
             aria-label="Descripcio"
-            v-model="description"
+            v-model="cartInfo.description"
           ></textarea>
         </div>
 
@@ -47,13 +57,13 @@
           <textarea
             class="form-control"
             aria-label="Caracteristicas"
-            v-model="caracteristicas"
+            v-model="cartInfo.caracteristicas"
           ></textarea>
         </div>
 
         <hr />
         <div class="d-flex justify-content-evenly">
-          <button type="submit" class="btn btn-primary" value="obtener">
+          <button type="submit" class="btn btn-primary" value="updateCart">
             Actualizar Carta
           </button>
         </div>
@@ -64,7 +74,8 @@
 
 <script lang="ts">
 import cartsCollRef from "@/main";
-import { getDoc, doc } from "firebase/firestore";
+import Swal from "sweetalert2";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -73,24 +84,48 @@ export default defineComponent({
       selectedCart: {},
       cartId: null,
       docRef: null,
-      idCart: null,
-      title: null,
-      xp: null,
-      urlImg: null,
-      description: null,
-      caracteristicas: null,
+      cartInfo: {
+        idCart: null,
+        title: null,
+        xp: null,
+        urlImg: null,
+        description: null,
+        caracteristicas: null,
+      },
     };
   },
   methods: {
+    okSave() {
+      Swal.fire({
+        title: "Guardado",
+        text: "La informacion de la carta se ha Guardado Correctamente",
+        icon: "success",
+      });
+    },
+    notSave() {
+      Swal.fire({
+        title: "Error",
+        text: "La informacion de la carta no se pudo guardar Correctamente",
+        icon: "error",
+      });
+    },
     async getCart() {
       this.docRef = doc(cartsCollRef, this.cartId);
       let cart = await getDoc(this.docRef);
-      this.idCart = cart.data()["idCart"];
-      this.title = cart.data()["title"];
-      this.xp = cart.data()["xp"];
-      this.urlImg = cart.data()["urlImg"];
-      this.description = cart.data()["description"];
-      this.caracteristicas = cart.data()["caracteristicas"];
+      this.cartInfo.idCart = cart.data()["idCart"];
+      this.cartInfo.title = cart.data()["title"];
+      this.cartInfo.xp = cart.data()["xp"];
+      this.cartInfo.urlImg = cart.data()["urlImg"];
+      this.cartInfo.description = cart.data()["description"];
+      this.cartInfo.caracteristicas = cart.data()["caracteristicas"];
+    },
+    async updateCart() {
+      await setDoc(this.docRef, this.cartInfo)
+        .then(() => {
+          this.okSave();
+          this.$router.push("/listCarts");
+        })
+        .catch(() => this.notSave());
     },
   },
   created() {
