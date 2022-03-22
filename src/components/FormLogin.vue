@@ -95,29 +95,32 @@ export default defineComponent({
       auth: getAuth(),
     };
   },
+
   methods: {
-    Login(email: string, password: string) {
+    async Login(email: string, password: string) {
       signInWithEmailAndPassword(this.auth, email, password)
         .then((userCredential) => {
           console.log(userCredential);
         })
         .catch((error) => {
+          console.log(error);
           alert(
             `La el email o la password estan erradas, vuelvalo a intentar.`
           );
         });
     },
-    SingInGoogle() {
+    async SingInGoogle() {
       const provider = new GoogleAuthProvider();
       signInWithPopup(this.auth, provider)
         .then(() => console.log("SingIn"))
         .catch((error) => alert(`Error al iniciar session ${error}`));
     },
-    SingInFacebook() {
+    async SingInFacebook() {
       const provider = new FacebookAuthProvider();
       this.auth.useDeviceLanguage();
       signInWithPopup(this.auth, provider)
         .then((result) => {
+          console.log(result);
           console.log("Autenticado");
         })
         .catch((error) =>

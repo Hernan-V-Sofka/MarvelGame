@@ -19,7 +19,7 @@ export default defineComponent({
         if (!user) {
           router.replace("/login");
         } else if (route.path == "/login" || route.path == "/register") {
-          router.replace("/");
+          router.replace("/admin");
         }
       });
     });

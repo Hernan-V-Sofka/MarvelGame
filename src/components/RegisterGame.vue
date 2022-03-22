@@ -56,7 +56,8 @@
 
 <script lang= "ts">
 import { defineComponent } from "vue";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,signOut } from "firebase/auth";
+
 
 export default defineComponent({
   name: "RegisterUser",
@@ -67,9 +68,9 @@ export default defineComponent({
     };
   },
   methods: {
-    register(email: string, password: string) {
+    async register(email: string, password: string) {
       const auth = getAuth();
-      createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           alert("Sea registrado de manera correcta");
