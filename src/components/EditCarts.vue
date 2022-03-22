@@ -10,6 +10,7 @@
             class="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-sm"
+            disabled
             v-model="idCart"
           />
         </div>
@@ -27,6 +28,7 @@
             type="text"
             class="form-control"
             id="urlImagen"
+            disabled
             v-model="urlImg"
           />
         </div>
@@ -61,7 +63,41 @@
 </template>
 
 <script lang="ts">
+import cartsCollRef from "@/main";
+import { getDoc, doc } from "firebase/firestore";
 import { defineComponent } from "vue";
-export default defineComponent({});
+
+export default defineComponent({
+  data() {
+    return {
+      selectedCart: {},
+      cartId: null,
+      docRef: null,
+      idCart: null,
+      title: null,
+      xp: null,
+      urlImg: null,
+      description: null,
+      caracteristicas: null,
+    };
+  },
+  methods: {
+    async getCart() {
+      this.docRef = doc(cartsCollRef, this.cartId);
+      let cart = await getDoc(this.docRef);
+      this.idCart = cart.data()["idCart"];
+      this.title = cart.data()["title"];
+      this.xp = cart.data()["xp"];
+      this.urlImg = cart.data()["urlImg"];
+      this.description = cart.data()["description"];
+      this.caracteristicas = cart.data()["caracteristicas"];
+    },
+  },
+  created() {
+    let cartId = this.$route.params.cartId;
+    this.cartId = cartId;
+    this.getCart();
+  },
+});
 </script>
 
