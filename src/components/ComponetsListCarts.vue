@@ -6,76 +6,70 @@
       </router-link>
     </div>
     <table class="table table-bordered table-striped">
-      <thead>
-        <tr class="text-center">
-          <th>Id</th>
-          <th>Title</th>
-          <th>Caracteristicas</th>
-          <th>Descripcion</th>
-          <th>XP</th>
-          <th>URL</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tr class="w-auto p-3 text-start">
-        <td class="text-size">
-          <span v-for="item in carts" v-bind:key="item.id">{{
-            item.data.id
-          }}</span>
-        </td>
-        <td class="text-size">
-          <span v-for="item in carts" v-bind:key="item.id">{{
-            item.data.title
-          }}</span>
-        </td>
-        <td class="text-size">
-          <span>{{ caracteristicas }}</span>
-        </td>
-        <td class="text-size">
-          <span>{{ descripcion }}</span>
-        </td>
-        <td class="text-size">
-          <span>{{ xp }}</span>
-        </td>
-        <td class="text-size">
-          <span>{{ url }}</span>
-        </td>
-        <td>
+      <ul class="w-auto p-3 text-start list-group">
+        <li
+          v-for="cart in carts"
+          :key="cart.id"
+          class="
+            list-group-item
+            d-flex
+            justify-content-center
+            align-items-center
+          "
+        >
+          {{
+            cart.title +
+            "  |  " +
+            cart.xp +
+            "  |  " +
+            cart.description +
+            "  |  "
+          }}
           <router-link
-            class="m-1 btn btn-sm btn-primary"
+            class="p-2  m-3 btn btn-sm btn-primary"
             style="background-color: #0d6efd"
-            :to="{path: '/editcarts/sdoems12'}"
+            :to="{path: `/editcarts/${cart.id}`}"
           >
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </router-link>
           <button
-            class="m-1 btn btn-sm btn-danger"
+            class="p-2  m-2 btn btn-sm btn-danger"
             style="background-color: #dc3545"
           >
             <i class="fa fa-trash" aria-hidden="true"></i>
           </button>
-        </td>
-      </tr>
+        </li>
+      </ul>
     </table>
   </div>
 </template>
 
 <script lang= "ts">
 import { defineComponent } from "vue";
-
+import { getDocs } from "firebase/firestore";
+import cartsCollRef from "@/main";
 export default defineComponent({
   name: "listCarts",
   data() {
     return {
-      id: 1,
-      title: null,
-      caracteristicas: null,
-      descripcion: null,
-      xp: null,
-      url: null,
-      // carts: [],
-      // db: getDatabase,
+      carts: [],
     };
+  },
+  methods: {
+    async getCartsList() {
+      let cartesSnapShot = await getDocs(cartsCollRef);
+      let carts = [];
+      cartesSnapShot.forEach((cart) => {
+        let cartData = cart.data();
+        cartData.id = cart.id;
+        carts.push(cartData);
+      });
+      console.log(carts);
+      this.carts = carts;
+    },
+  },
+  created() {
+    this.getCartsList();
   },
 });
 </script>
