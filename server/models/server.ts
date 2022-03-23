@@ -3,8 +3,8 @@ import morgan from 'morgan'
 import cors from 'cors'
 
 import entorno from '../entorno';
-import ConnectionFireBase from '../DB/ConnectionFireBase';
-import login from '../routes/login.routes';
+// import ConnectionFireBase from '../DB/ConnectionFireBase';
+// import login from '../routes/login.routes';
 
 
 /* 
@@ -20,7 +20,7 @@ class Server {
     private port: string;
 
     private apiPaths = {
-        login:'/game/login'
+        login:'/game/carts'
     }
 
     constructor(){
@@ -35,7 +35,7 @@ class Server {
     
     private async dbConnection(){
         try {
-            const db = new ConnectionFireBase();       
+            console.log('FireBase Connect');
         } catch (error) {
             throw new Error(`Error en la conexion ${error}`);   
         }        
@@ -49,7 +49,9 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.apiPaths.login, login);
+        console.log('Rutas');
+        
+        // this.app.use(this.apiPaths.login, login);
     }
 
     listen() {
