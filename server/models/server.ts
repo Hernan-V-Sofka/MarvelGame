@@ -1,11 +1,8 @@
-import express, {Application} from 'express';
-import morgan from 'morgan'
-import cors from 'cors'
+import express, { Application } from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 
-import entorno from '../entorno';
-// import ConnectionFireBase from '../DB/ConnectionFireBase';
-// import login from '../routes/login.routes';
-
+import rutasGame from '../routes/Games.routes';
 
 /* 
     Clase encargada de inicializar el servidor 
@@ -20,43 +17,32 @@ class Server {
     private port: string;
 
     private apiPaths = {
-        login:'/game/carts'
+        login: '/game/'
     }
 
-    constructor(){
+    constructor() {
         this.app = express();
-        this.port = entorno.port|| '8000';
+        this.port = '8000';
 
         // Llamada al metodo de los meddelwares
-        this.dbConnection();
         this.middleware();
         this.routes();
-    }
-    
-    private async dbConnection(){
-        try {
-            console.log('FireBase Connect');
-        } catch (error) {
-            throw new Error(`Error en la conexion ${error}`);   
-        }        
     }
 
     middleware() {
         this.app.use(morgan('dev'));
         this.app.use(cors());
-        this.app.use(express.urlencoded({extended: false}));
+        this.app.use(express.urlencoded({ extended: false }));
         this.app.use(express.json());
     }
 
     routes() {
-        console.log('Rutas');
-        
-        // this.app.use(this.apiPaths.login, login);
+        this.app.use(this.apiPaths.login, rutasGame);
     }
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log(`Servidor corriendo en puerto ${ this.port }`);
+            console.log(`Servidor corriendo en puerto ${this.port}`);
         });
     }
 }
