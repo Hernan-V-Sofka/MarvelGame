@@ -67,7 +67,6 @@ export default defineComponent({
         cartData.id = cart.id;
         carts.push(cartData);
       });
-      console.log(carts);
       this.carts = carts;
     },
 

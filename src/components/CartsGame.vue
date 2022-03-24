@@ -18,15 +18,16 @@
               <small class="text-danger fs-6">Power: {{ cart.xp }}</small>
             </div>
             <button
-              type="button"
+              type="submit"
               class="btn btn-dark fs-6"
-              @:click="validateCart()"
+              v-on:click="validateCart(cart.idCart,cart.xp)"
             >
               Colocar Carta
             </button>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -42,29 +43,25 @@
 <script lang= "ts">
 import { defineComponent } from "vue";
 import { Data } from "@/interfaces/dataInterface";
+import { validateValueCart } from '@/services/CartsService';
 
 export default defineComponent({
   name: "CartGame",
   data() {
     return {
-      imgUrl: null,
-      title: null,
-      description: null,
-      xp: null,
-      caracteristicas: null,
       carts: [] as Data[],
     };
   },
   methods: {
-    async validateCart() {
-      console.log("Hola mundo");
+    async validateCart(id, valueCart) {
+      const res = await validateValueCart({id, valueCart});
+      console.log(res);
     },
   },
   mounted() {
     let data = localStorage.getItem("Cartas");
     if (data != null) {
       this.carts = JSON.parse(data);
-      console.log(this.carts);
     }
   },
 });
